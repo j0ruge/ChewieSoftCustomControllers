@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ApplicationIcon />
+		<StartupObject />
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>ChewieSoftCustomControllers</PackageId>
+		<Authors>GaribU Rider</Authors>
+		<Company>ChewieSoft</Company>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+	</ItemGroup>
+
+</Project>
