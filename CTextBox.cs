@@ -19,6 +19,10 @@ namespace CustomController
         private bool isFocused = false;
 
         private int borderRadius = 0;
+        private Color placeholderColor = Color.DarkGray;
+        private string placeholderText = "";
+        private bool isPlaceholder = false;
+        private bool isPasswordChar = false;
 
         //Events
         public event EventHandler _TextChanged;
@@ -31,7 +35,7 @@ namespace CustomController
             InitializeComponent();
         }
 
-
+        #region => Properties
 
         //Properties
 
@@ -45,6 +49,7 @@ namespace CustomController
                 this.Invalidate();
             }
         }
+
         [Category("ChewieSoft")]
         public int BorderSize
         {
@@ -70,8 +75,12 @@ namespace CustomController
         [Category("ChewieSoft")]
         public bool PasswordChar
         {
-            get => inputField.UseSystemPasswordChar;
-            set => inputField.UseSystemPasswordChar = value;
+            get => isPasswordChar;
+            set
+            {
+                isPasswordChar = value;
+                inputField.UseSystemPasswordChar = value;
+            }
         }
 
         [Category("ChewieSoft")]
@@ -116,7 +125,20 @@ namespace CustomController
         }
 
         [Category("ChewieSoft")]
-        public string Texts { get => inputField.Text; set => inputField.Text = value; }
+        public string Texts
+        {
+            get
+            {
+                if (isPlaceholder) return "";
+                else return inputField.Text;
+
+            }
+            set
+            {
+                inputField.Text = value;
+                SetPlaceHolder();
+            }
+        }
 
         [Category("ChewieSoft")]
         public Color BorderFocusColor { get => borderFocusColor; set => borderFocusColor = value; }
@@ -135,6 +157,33 @@ namespace CustomController
             }
         }
 
+        [Category("ChewieSoft")]
+        public Color PlaceholderColor
+        {
+            get => placeholderColor; set
+            {
+
+                placeholderColor = value;
+                if (isPlaceholder)
+                    inputField.ForeColor = value;
+
+            }
+        }
+
+        [Category("ChewieSoft")]
+        public string PlaceholderText
+        {
+            get => placeholderText; set
+            {
+                placeholderText = value;
+                inputField.Text = String.Empty; // More elegante than "";
+                SetPlaceHolder();
+            }
+        }
+
+        #endregion => Properties
+
+        #region => Methods (Overriden) 
         //Overriden methods
 
         protected override void OnPaint(PaintEventArgs e)
@@ -145,14 +194,48 @@ namespace CustomController
 
             if (borderRadius > 1) // Rounded TextBox
             {
+                //-Fields
+                var rectBorderSmooth = this.ClientRectangle;
+                var rectBorder = Rectangle.Inflate(rectBorderSmooth, -borderSize, -borderSize);
+                int smoothSize = borderSize > 0 ? borderSize : 1;
 
+
+                using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderRadius))
+                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
+                using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
+                using (Pen penBorder = new Pen(borderColor, borderSize))
+                {
+                    //-Drawing
+                    this.Region = new Region(pathBorderSmooth);//Set the rounded region of UserControl
+                    if (borderRadius > 15) SetTextBoxRoundedRegion();//Set the rounded region of TextBox component
+                    graph.SmoothingMode = SmoothingMode.AntiAlias;
+                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
+                    if (isFocused) penBorder.Color = borderFocusColor;
+
+                    if (underlinedStyle) //Line Style
+                    {
+                        //Draw border smoothing
+                        graph.DrawPath(penBorderSmooth, pathBorderSmooth);
+                        //Draw border
+                        graph.SmoothingMode = SmoothingMode.None;
+                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
+                    }
+                    else //Normal Style
+                    {
+                        //Draw border smoothing
+                        graph.DrawPath(penBorderSmooth, pathBorderSmooth);
+                        //Draw border
+                        graph.DrawPath(penBorder, pathBorder);
+                    }
+                }
             }
-            else
+            else //Square/Normal TextBox
             {
                 //Draw border
                 using (Pen penBorder = new Pen(borderColor, borderSize))
                 {
-                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+                    this.Region = new Region(this.ClientRectangle);
+                    penBorder.Alignment = PenAlignment.Inset;
 
                     if (!isFocused)
                     {
@@ -175,9 +258,24 @@ namespace CustomController
 
             }
 
-            
+
         }
 
+        private void SetTextBoxRoundedRegion()
+        {
+            GraphicsPath pathTxt;
+            if (Multiline)
+            {
+                pathTxt = GetFigurePath(inputField.ClientRectangle, borderRadius - borderSize);
+                inputField.Region = new Region(pathTxt);
+            }
+            else
+            {
+                pathTxt = GetFigurePath(inputField.ClientRectangle, borderSize * 2);
+                inputField.Region = new Region(pathTxt);
+            }
+            pathTxt.Dispose();
+        }
 
         private GraphicsPath GetFigurePath(Rectangle rect, int radius)
         {
@@ -208,7 +306,35 @@ namespace CustomController
             UpdateControlHeight();
         }
 
+        #endregion   => Methods (Overriden) 
+
+        #region => Methods (Private)
         //Private methods
+
+        private void SetPlaceHolder()
+        {
+            if (string.IsNullOrWhiteSpace(inputField.Text) && placeholderText != String.Empty) // More elegant than "";
+            {
+                isPlaceholder = true;
+                inputField.Text = placeholderText;
+                inputField.ForeColor = placeholderColor;
+                if (isPasswordChar)
+                    inputField.UseSystemPasswordChar = false;
+            }
+        }
+
+        private void RemovePlaceHolder()
+        {
+            if (isPlaceholder && placeholderText != String.Empty) // More elegant than "";
+            {
+                isPlaceholder = false;
+                inputField.Text = String.Empty;
+                inputField.ForeColor = this.ForeColor;
+                if (isPasswordChar)
+                    inputField.UseSystemPasswordChar = true;
+            }
+        }
+
         private void UpdateControlHeight()
         {
             if (inputField.Multiline == false)
@@ -252,14 +378,19 @@ namespace CustomController
         {
             isFocused = true;
             this.Invalidate();
+            RemovePlaceHolder();
         }
 
         private void inputField_Leave(object sender, EventArgs e)
         {
             isFocused = false;
             this.Invalidate(); // Redraw the control
+            SetPlaceHolder();
         }
 
         ///TODO: Add the other events
+
+        #endregion => Methods (Private)
+
     }
 }
