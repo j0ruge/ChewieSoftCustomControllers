@@ -10,10 +10,20 @@
 		<PackageId>ChewieSoftCustomControllers</PackageId>
 		<Authors>GaribU Rider</Authors>
 		<Company>ChewieSoft</Company>
+		<PackageIcon>chewieapp_logo.png</PackageIcon>
+		<PackageIconUrl />
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Assets\chewieapp_logo.png">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
