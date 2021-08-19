@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace CustomController
@@ -8,6 +9,8 @@ namespace CustomController
     [DefaultEvent("_TextChanged")]
     public partial class CTextBox : UserControl
     {
+
+        #region => Fields 
         //Fields
         private Color borderColor = Color.MediumSlateBlue;
         private int borderSize = 2;
@@ -15,14 +18,20 @@ namespace CustomController
         private Color borderFocusColor = Color.HotPink;
         private bool isFocused = false;
 
+        private int borderRadius = 0;
+
+        //Events
+        public event EventHandler _TextChanged;
+
+        #endregion => Fields
+
         //Constructor
         public CTextBox()
         {
             InitializeComponent();
         }
 
-        //Events
-        public event EventHandler _TextChanged;
+
 
         //Properties
 
@@ -112,6 +121,20 @@ namespace CustomController
         [Category("ChewieSoft")]
         public Color BorderFocusColor { get => borderFocusColor; set => borderFocusColor = value; }
 
+        [Category("ChewieSoft")]
+        public int BorderRadius
+        {
+            get => borderRadius;
+            set
+            {
+                if (value >= 0)
+                {
+                    borderRadius = value;
+                    this.Invalidate(); // Redraw the control
+                }
+            }
+        }
+
         //Overriden methods
 
         protected override void OnPaint(PaintEventArgs e)
@@ -119,30 +142,58 @@ namespace CustomController
             base.OnPaint(e);
             Graphics graph = e.Graphics;
 
-            //Draw border
-            using (Pen penBorder = new Pen(borderColor, borderSize))
-            {
-                penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
 
-                if (!isFocused)
-                {
-                    if (underlinedStyle) //Line Style
-                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    else                 //Normal Style
-                        graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
-                }
-                else
-                {
-                    penBorder.Color = borderFocusColor;
-                    
-                    if (underlinedStyle) //Line Style
-                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    else                 //Normal Style
-                        graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
-                }
-                
+            if (borderRadius > 1) // Rounded TextBox
+            {
+
             }
+            else
+            {
+                //Draw border
+                using (Pen penBorder = new Pen(borderColor, borderSize))
+                {
+                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
+
+                    if (!isFocused)
+                    {
+                        if (underlinedStyle) //Line Style
+                            graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
+                        else                 //Normal Style
+                            graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                    }
+                    else
+                    {
+                        penBorder.Color = borderFocusColor;
+
+                        if (underlinedStyle) //Line Style
+                            graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
+                        else                 //Normal Style
+                            graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                    }
+
+                }
+
+            }
+
+            
         }
+
+
+        private GraphicsPath GetFigurePath(Rectangle rect, int radius)
+        {
+            var path = new GraphicsPath();
+            float curveSize = radius * 2F;
+
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
+            path.CloseFigure();
+
+            return path;
+        }
+
 
         protected override void OnResize(EventArgs e)
         {
@@ -209,6 +260,6 @@ namespace CustomController
             this.Invalidate(); // Redraw the control
         }
 
-        ///Add the other events
+        ///TODO: Add the other events
     }
 }

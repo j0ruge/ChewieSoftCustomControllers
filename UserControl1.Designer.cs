@@ -36,9 +36,9 @@ namespace CustomController
             // 
             this.inputField.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.inputField.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.inputField.Location = new System.Drawing.Point(7, 7);
+            this.inputField.Location = new System.Drawing.Point(10, 7);
             this.inputField.Name = "inputField";
-            this.inputField.Size = new System.Drawing.Size(236, 17);
+            this.inputField.Size = new System.Drawing.Size(230, 17);
             this.inputField.TabIndex = 0;
             this.inputField.Click += new System.EventHandler(this.inputField_Click);
             this.inputField.TextChanged += new System.EventHandler(this.inputField_TextChanged);
@@ -56,7 +56,7 @@ namespace CustomController
             this.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ForeColor = System.Drawing.Color.DimGray;
             this.Name = "CTextBox";
-            this.Padding = new System.Windows.Forms.Padding(7);
+            this.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
             this.Size = new System.Drawing.Size(250, 30);
             this.ResumeLayout(false);
             this.PerformLayout();
