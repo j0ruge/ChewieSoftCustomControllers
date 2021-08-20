@@ -21,23 +21,48 @@ namespace CustomController
         //Properties
 
         [Category("ChewieSoft")]
-        public int BorderSize { get => borderSize; set { borderSize = value; this.Invalidate(); } }
-
-        [Category("ChewieSoft")]
-        public int BorderRadius
+        public int BorderSize
         {
-            get => borderRadius;
-            set
+            get => borderSize; set
             {
-                if (value <= this.Height)
-                    borderRadius = value;
-                else borderRadius = this.Height;
+                borderSize = value;
                 this.Invalidate();
             }
         }
 
         [Category("ChewieSoft")]
-        public Color BorderColor { get => borderColor; set { borderColor = value; this.Invalidate(); } }
+        public int BorderRadius
+        {
+            get { return borderRadius; }
+            set
+            {
+                borderRadius = value;
+                this.Invalidate();
+            }
+        }
+
+        //public int BorderRadius
+        //{
+        //    get => borderRadius;
+        //    set
+        //    {
+        //        if (value <= this.Height)
+        //            borderRadius = value;
+        //        else borderRadius = this.Height;
+        //        this.Invalidate();
+        //    }
+        //}
+
+        [Category("ChewieSoft")]
+        public Color BorderColor
+        {
+            get => borderColor;
+            set
+            {
+                borderColor = value;
+                this.Invalidate();
+            }
+        }
 
         [Category("ChewieSoft")]
         public Color BackgroundColor

@@ -13,6 +13,7 @@
 		<PackageIcon>chewieapp_logo.png</PackageIcon>
 		<PackageIconUrl />
 		<Version>1.0.2</Version>
+		<AssemblyName>CustomController</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
