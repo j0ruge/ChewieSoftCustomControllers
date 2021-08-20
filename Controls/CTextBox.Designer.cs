@@ -43,6 +43,7 @@ namespace CustomController
             this.inputField.Click += new System.EventHandler(this.inputField_Click);
             this.inputField.TextChanged += new System.EventHandler(this.inputField_TextChanged);
             this.inputField.Enter += new System.EventHandler(this.inputField_Enter);
+            this.inputField.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputField_KeyDown);
             this.inputField.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inputField_KeyPress);
             this.inputField.Leave += new System.EventHandler(this.inputField_Leave);
             this.inputField.MouseEnter += new System.EventHandler(this.inputField_MouseEnter);

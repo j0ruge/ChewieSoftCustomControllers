@@ -400,9 +400,15 @@ namespace CustomController
             SetPlaceHolder();
         }
 
+        private void inputField_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.OnKeyDown(e);
+        }
+
         ///TODO: Add the other events
 
         #endregion => Methods (Private)
+
 
     }
 }
