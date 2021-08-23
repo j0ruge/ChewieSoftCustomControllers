@@ -15,7 +15,7 @@ namespace CustomController
         private Color borderColor = Color.MediumSlateBlue;
         private int borderSize = 2;
         private bool underlinedStyle = false;
-        private Color borderFocusColor = Color.HotPink;
+        private Color borderFocusColor = Color.DarkMagenta;
         private bool isFocused = false;
 
         private int borderRadius = 0;
@@ -145,6 +145,22 @@ namespace CustomController
             set
             {
                 inputField.Text = value;
+                //SetPlaceHolder();
+            }
+        }
+
+        [Category("ChewieSoft")]
+        public override string Text
+        {
+            get
+            {
+                if (isPlaceholder) return "";
+                else return inputField.Text;
+
+            }
+            set
+            {
+                inputField.Text = value;
                 SetPlaceHolder();
             }
         }
@@ -185,7 +201,7 @@ namespace CustomController
             get => placeholderText; set
             {
                 placeholderText = value;
-                inputField.Text = String.Empty; // More elegante than "";
+                inputField.Text = ""; // String.Empty is More elegante than "";
                 SetPlaceHolder();
             }
         }
@@ -325,7 +341,7 @@ namespace CustomController
 
         private void SetPlaceHolder()
         {
-            if (string.IsNullOrWhiteSpace(inputField.Text) && placeholderText != String.Empty) // More elegant than "";
+            if (string.IsNullOrWhiteSpace(inputField.Text) && placeholderText != "" ) // String.Empty is More elegant than "";
             {
                 isPlaceholder = true;
                 inputField.Text = placeholderText;
@@ -337,10 +353,10 @@ namespace CustomController
 
         private void RemovePlaceHolder()
         {
-            if (isPlaceholder && placeholderText != String.Empty) // More elegant than "";
+            if (isPlaceholder && placeholderText != "") // String.Empty is More elegant than "";
             {
                 isPlaceholder = false;
-                inputField.Text = String.Empty;
+                inputField.Text = "";
                 inputField.ForeColor = this.ForeColor;
                 if (isPasswordChar)
                     inputField.UseSystemPasswordChar = true;

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>Library</OutputType>
+		<OutputType>WinExe</OutputType>
 		<TargetFramework>net5.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ApplicationIcon />
@@ -12,8 +12,9 @@
 		<Company>ChewieSoft</Company>
 		<PackageIcon>chewieapp_logo.png</PackageIcon>
 		<PackageIconUrl />
-		<Version>1.0.3</Version>
-		<AssemblyName>CustomController</AssemblyName>
+		<Version>1.0.7.0</Version>
+		<AssemblyName>CustomController.Controls</AssemblyName>
+		<Description>Custom UI elements for any purpose</Description>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -25,6 +26,25 @@
 	    <Pack>True</Pack>
 	    <PackagePath></PackagePath>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="MaterialSkin.NET5" Version="1.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>
