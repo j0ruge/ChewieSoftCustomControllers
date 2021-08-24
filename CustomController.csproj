@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
+		<OutputType>Library</OutputType>
 		<TargetFramework>net5.0-windows</TargetFramework>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ApplicationIcon />
@@ -12,10 +12,23 @@
 		<Company>ChewieSoft</Company>
 		<PackageIcon>chewieapp_logo.png</PackageIcon>
 		<PackageIconUrl />
-		<Version>1.0.7.0</Version>
+		<Version>1.0.7.1</Version>
 		<AssemblyName>CustomController.Controls</AssemblyName>
-		<Description>Custom UI elements for any purpose</Description>
+		<Description>Windows Forms Custom UI elements for any purpose based on RJ Code and Chrene91
+</Description>
+		<RepositoryUrl>https://github.com/j0ruge/ChewieSoftCustomControllers/</RepositoryUrl>
+		<Copyright>ChewieSoft</Copyright>
+		<PackageReleaseNotes>The UserControl is based in RJ Code TextBox, and place holder based on Chrene91 work.
+
+RJ Code =&gt; https://github.com/RJCodeAdvance/Custom-TextBox-2--Rounded-Placeholder
+Chrene91 =&gt; https://www.codeproject.com/Articles/319910/Custom-TextBox-with-watermark</PackageReleaseNotes>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="Controls\UserControls\**" />
+	  <EmbeddedResource Remove="Controls\UserControls\**" />
+	  <None Remove="Controls\UserControls\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
@@ -45,10 +58,6 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Controls\UserControls\" />
 	</ItemGroup>
 
 </Project>
