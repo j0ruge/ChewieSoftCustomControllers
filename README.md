@@ -1,4 +1,4 @@
-# ChewieSoftCustomControllers
+# ChewieSoft's CustomControllers for Windows Form
 
 Windows Forms Custom UI elements for any purpose based on RJ Code and Chrene91
 
