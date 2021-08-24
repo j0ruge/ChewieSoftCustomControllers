@@ -25,16 +25,11 @@ namespace CustomController
             materialForm.ShowDialog();
         }
 
-        private void cTextBox1__TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnApply_Click(object sender, EventArgs e)
         {
             Usuarios usuario = new Usuarios();
-            usuario.NomeUsuario = userName.Texts;
-            usuario.Empresa = companyName.Texts;
+            usuario.NomeUsuario = ifUserName.Text;
+            usuario.Empresa = companyName.Text;
 
             //UsuariosServicos _UsuariosServicos = new UsuariosServicos(new UsuariosRepositorioCripto());
             UsuariosServicos _UsuariosServicos = new UsuariosServicos(new UsuariosRepositorioJSON());
@@ -46,6 +41,7 @@ namespace CustomController
         {
             UsuariosServicos _UsuariosServicos = new UsuariosServicos(new UsuariosRepositorioJSON());
             Usuarios usuario = _UsuariosServicos.Recuperar();
+            ifUserName.Text = usuario.NomeUsuario;
             userName.Text = usuario.NomeUsuario;
             companyName.Text = usuario.Empresa;
 

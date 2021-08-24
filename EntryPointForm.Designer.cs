@@ -38,6 +38,7 @@ namespace CustomController
             this.userName = new CustomController.CTextBox();
             this.btnApply = new CustomController.Controls.CButton();
             this.companyName = new CustomController.CTextBox();
+            this.ifUserName = new CustomController.Controls.CTextBoxWatermak();
             this.SuspendLayout();
             // 
             // btnCallMaterialForm
@@ -69,10 +70,11 @@ namespace CustomController
             // 
             // cTextBoxAlternative1
             // 
-            this.cTextBoxAlternative1.Location = new System.Drawing.Point(354, 150);
+            this.cTextBoxAlternative1.Location = new System.Drawing.Point(263, 262);
+            this.cTextBoxAlternative1.MinimumSize = new System.Drawing.Size(227, 55);
             this.cTextBoxAlternative1.Name = "cTextBoxAlternative1";
             this.cTextBoxAlternative1.PlaceholderText = "GabirU";
-            this.cTextBoxAlternative1.Size = new System.Drawing.Size(100, 23);
+            this.cTextBoxAlternative1.Size = new System.Drawing.Size(227, 23);
             this.cTextBoxAlternative1.TabIndex = 2;
             this.cTextBoxAlternative1.WaterMark = "Placeholder";
             this.cTextBoxAlternative1.WaterMarkActiveForeColor = System.Drawing.Color.Gray;
@@ -107,7 +109,7 @@ namespace CustomController
             // 
             // userName
             // 
-            this.userName.BackColor = System.Drawing.SystemColors.Window;
+            this.userName.BackColor = System.Drawing.Color.White;
             this.userName.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("userName.BackgroundImage")));
             this.userName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.userName.BorderColor = System.Drawing.Color.MediumSlateBlue;
@@ -115,19 +117,22 @@ namespace CustomController
             this.userName.BorderRadius = 10;
             this.userName.BorderSize = 2;
             this.userName.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.userName.ForeColor = System.Drawing.Color.DimGray;
+            this.userName.ForeColor = System.Drawing.Color.Black;
             this.userName.Location = new System.Drawing.Point(53, 51);
-            this.userName.Multiline = true;
+            this.userName.MinimumSize = new System.Drawing.Size(227, 55);
+            this.userName.Multiline = false;
             this.userName.Name = "userName";
             this.userName.Padding = new System.Windows.Forms.Padding(40, 18, 10, 7);
             this.userName.PasswordChar = false;
-            this.userName.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.userName.PlaceholderText = "";
+            this.userName.Placeholder = "User";
+            this.userName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
+            this.userName.placeholderBackColor = System.Drawing.Color.White;
+            this.userName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.userName.PlaceholderForeColor = System.Drawing.Color.DimGray;
             this.userName.Size = new System.Drawing.Size(227, 55);
             this.userName.TabIndex = 5;
             this.userName.Texts = "";
             this.userName.UnderlinedStyle = false;
-            this.userName._TextChanged += new System.EventHandler(this.cTextBox1__TextChanged);
             // 
             // btnApply
             // 
@@ -162,19 +167,45 @@ namespace CustomController
             this.companyName.Name = "companyName";
             this.companyName.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
             this.companyName.PasswordChar = false;
-            this.companyName.PlaceholderColor = System.Drawing.Color.DarkGray;
-            this.companyName.PlaceholderText = "";
+            this.companyName.Placeholder = "Default Placeholder...";
+            this.companyName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
+            this.companyName.placeholderBackColor = System.Drawing.SystemColors.Window;
+            this.companyName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.companyName.PlaceholderForeColor = System.Drawing.Color.LightGray;
             this.companyName.Size = new System.Drawing.Size(227, 32);
             this.companyName.TabIndex = 5;
             this.companyName.Texts = "";
             this.companyName.UnderlinedStyle = false;
-            this.companyName._TextChanged += new System.EventHandler(this.cTextBox1__TextChanged);
+            // 
+            // ifUserName
+            // 
+            this.ifUserName.BackColor = System.Drawing.SystemColors.Window;
+            this.ifUserName.BackgroundImage = global::CustomController.Properties.Resources.userInputField;
+            this.ifUserName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.ifUserName.BorderColor = System.Drawing.Color.DarkSlateBlue;
+            this.ifUserName.BorderFocusColor = System.Drawing.Color.DeepSkyBlue;
+            this.ifUserName.BorderRadius = 10;
+            this.ifUserName.BorderSize = 2;
+            this.ifUserName.Location = new System.Drawing.Point(515, 73);
+            this.ifUserName.MinimumSize = new System.Drawing.Size(227, 55);
+            this.ifUserName.Multiline = false;
+            this.ifUserName.Name = "ifUserName";
+            this.ifUserName.Padding = new System.Windows.Forms.Padding(40, 18, 7, 7);
+            this.ifUserName.PasswordChar = false;
+            this.ifUserName.Placeholder = "User";
+            this.ifUserName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
+            this.ifUserName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ifUserName.PlaceholderForeColor = System.Drawing.Color.LightGray;
+            this.ifUserName.Size = new System.Drawing.Size(230, 55);
+            this.ifUserName.TabIndex = 7;
+            this.ifUserName.UnderlinedStyle = false;
             // 
             // EntryPointForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ifUserName);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.companyName);
             this.Controls.Add(this.userName);
@@ -200,5 +231,6 @@ namespace CustomController
         private CTextBox userName;
         private Controls.CButton btnApply;
         private CTextBox companyName;
+        private Controls.CTextBoxWatermak ifUserName;
     }
 }
