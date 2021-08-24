@@ -213,7 +213,7 @@ namespace CustomController.Controls
         }
 
         [Category("Watermark attribtues")]
-        [Description("When the control gaines focus, this color will be used as the watermark's forecolor")]
+        [Description("When the control gaines focus, this color will be used as the placeholder's forecolor")]
         public Color WaterMarkActiveForeColor
         {
             get { return this._waterMarkActiveColor; }
@@ -226,7 +226,7 @@ namespace CustomController.Controls
         }
 
         [Category("Watermark attribtues")]
-        [Description("When the control looses focus, this color will be used as the watermark's forecolor")]
+        [Description("When the control looses focus, this color will be used as the placeholder's forecolor")]
         public Color WaterMarkForeColor
         {
             get { return this._waterMarkColor; }

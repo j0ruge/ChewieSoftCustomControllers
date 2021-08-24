@@ -4,14 +4,14 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace CustomController
+namespace CustomController.Controls
 {
     public class CButton : Button
     {
         #region => Fields
 
         private int borderSize = 0;
-        private int borderRadius = 40;
+        private int borderRadius = 0;
         private Color borderColor = Color.PaleVioletRed;
 
         #endregion  => Fields

@@ -1,35 +1,36 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CustomController
+namespace CustomController.Controls
 {
     [DefaultEvent("_TextChanged")]
     public partial class CTextBox : UserControl
     {
+        #region => Private Fields
 
-        #region => Fields 
-        //Fields
+        //Border
         private Color borderColor = Color.MediumSlateBlue;
         private int borderSize = 2;
+        private Color borderFocusColor = Color.DarkMagenta;
+        private int borderRadius = 0;
+
+
         private bool underlinedStyle = false;
-        private Color borderFocusColor = Color.HotPink;
         private bool isFocused = false;
 
-        private int borderRadius = 0;
-        private Color placeholderColor = Color.DarkGray;
-        private string placeholderText = "";
-        private bool isPlaceholder = false;
         private bool isPasswordChar = false;
 
-        //Events
-        public event EventHandler _TextChanged;
+        #endregion => Private Fields
 
-        #endregion => Fields
 
-        //Constructor
         public CTextBox()
         {
             InitializeComponent();
@@ -37,7 +38,46 @@ namespace CustomController
 
         #region => Properties
 
-        //Properties
+
+        [Category("ChewieSoft")]
+        public bool UnderlinedStyle
+        {
+            get => underlinedStyle;
+            set
+            {
+                underlinedStyle = value;
+                this.Invalidate();
+            }
+        }
+
+        [Category("ChewieSoft")]
+        public bool PasswordChar
+        {
+            get => isPasswordChar;
+            set
+            {
+                isPasswordChar = value;
+                inputPlaceholder.UseSystemPasswordChar = value;
+            }
+        }
+
+        [Category("ChewieSoft")]
+        public Color BorderFocusColor { get => borderFocusColor; set => borderFocusColor = value; }
+
+        [Category("ChewieSoft")]
+        public int BorderRadius
+        {
+            get => borderRadius;
+            set
+            {
+                if (value >= 0)
+                {
+                    borderRadius = value;
+                    this.Invalidate(); // Redraw the control
+                }
+            }
+        }
+
 
         [Category("ChewieSoft")]
         public Color BorderColor
@@ -61,33 +101,47 @@ namespace CustomController
             }
         }
 
-        [Category("ChewieSoft")]
-        public bool UnderlinedStyle
-        {
-            get => underlinedStyle;
-            set
-            {
-                underlinedStyle = value;
-                this.Invalidate();
-            }
-        }
 
         [Category("ChewieSoft")]
-        public bool PasswordChar
-        {
-            get => isPasswordChar;
-            set
-            {
-                isPasswordChar = value;
-                inputField.UseSystemPasswordChar = value;
-            }
-        }
+        [Description("Sets the text of the input field")]
+        public override string Text { get => inputPlaceholder.Text; set => inputPlaceholder.Text = value; }
+
+        [Category("Placeholder")]
+        [Description("Sets the placeholder text for the input field")]
+        public string Placeholder { get => inputPlaceholder.WaterMark; set { inputPlaceholder.WaterMark = value; this.Invalidate(); } }
+
+
+        [Category("Placeholder")]
+        [Description("Sets the placeholder active fore color for the input field")]
+        public Color PlaceholderActiveForeColor { get => inputPlaceholder.WaterMarkActiveForeColor; set { inputPlaceholder.WaterMarkActiveForeColor = value; this.Invalidate(); } }
+
+        [Category("Placeholder")]
+        [Description("Sets the placeholder fore color for the input field")]
+        public Color PlaceholderForeColor { get => inputPlaceholder.WaterMarkForeColor; set { inputPlaceholder.WaterMarkForeColor = value; this.Invalidate(); } }
+
+        [Category("Placeholder")]
+        [Description("Sets the placeholder font for the input field. Default is the same as the control")]
+        public Font PlaceholderFont { get => inputPlaceholder.WaterMarkFont; set { inputPlaceholder.WaterMarkFont = value; this.Invalidate(); } }
+
 
         [Category("ChewieSoft")]
         public bool Multiline
         {
-            get => inputField.Multiline;
-            set => inputField.Multiline = value;
+            get => inputPlaceholder.Multiline;
+            set => inputPlaceholder.Multiline = value;
+        }
+
+        [Category("ChewieSoft")]
+        public override Font Font
+        {
+            get => base.Font;
+            set
+            {
+                base.Font = value;
+                inputPlaceholder.Font = value;
+                if (this.DesignMode)
+                    UpdateControlHeight();
+            }
         }
 
         [Category("ChewieSoft")]
@@ -99,7 +153,7 @@ namespace CustomController
                 try
                 {
                     base.BackColor = value;
-                    inputField.BackColor = value;
+                    inputPlaceholder.BackColor = value;
                 }
                 catch (Exception)
                 {
@@ -116,88 +170,96 @@ namespace CustomController
             set
             {
                 base.ForeColor = value;
-                inputField.ForeColor = value;
+                inputPlaceholder.ForeColor = value;
             }
         }
 
-        [Category("ChewieSoft")]
-        public override Font Font
-        {
-            get => base.Font;
-            set
-            {
-                base.Font = value;
-                inputField.Font = value;
-                if (this.DesignMode)
-                    UpdateControlHeight();
-            }
-        }
 
-        [Category("ChewieSoft")]
-        public string Texts
-        {
-            get
-            {
-                if (isPlaceholder) return "";
-                else return inputField.Text;
-
-            }
-            set
-            {
-                inputField.Text = value;
-                SetPlaceHolder();
-            }
-        }
-
-        [Category("ChewieSoft")]
-        public Color BorderFocusColor { get => borderFocusColor; set => borderFocusColor = value; }
-
-        [Category("ChewieSoft")]
-        public int BorderRadius
-        {
-            get => borderRadius;
-            set
-            {
-                if (value >= 0)
-                {
-                    borderRadius = value;
-                    this.Invalidate(); // Redraw the control
-                }
-            }
-        }
-
-        [Category("ChewieSoft")]
-        public Color PlaceholderColor
-        {
-            get => placeholderColor; set
-            {
-
-                placeholderColor = value;
-                if (isPlaceholder)
-                    inputField.ForeColor = value;
-
-            }
-        }
-
-        [Category("ChewieSoft")]
-        public string PlaceholderText
-        {
-            get => placeholderText; set
-            {
-                placeholderText = value;
-                inputField.Text = String.Empty; // More elegante than "";
-                SetPlaceHolder();
-            }
-        }
 
         #endregion => Properties
 
-        #region => Methods (Overriden) 
-        //Overriden methods
+
+        #region => Events
+
+        public event EventHandler _TextChanged;
+
+        private void inputPlaceholder_TextChanged(object sender, EventArgs e)
+        {
+            if (_TextChanged != null)
+            {                
+                _TextChanged.Invoke(sender, e);
+            }
+        }
+
+        private void inputPlaceholder_Click(object sender, EventArgs e)
+        {
+            this.OnClick(e);
+        }
+
+        private void inputPlaceholder_MouseEnter(object sender, EventArgs e)
+        {
+            this.OnMouseLeave(e);
+        }
+
+        private void inputPlaceholder_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            this.OnKeyPress(e);
+        }
+
+        private void inputPlaceholder_Enter(object sender, EventArgs e)
+        {
+            isFocused = true;
+            this.Invalidate();
+        }
+
+        private void inputPlaceholder_Leave(object sender, EventArgs e)
+        {
+            isFocused = false;
+            this.Invalidate(); // Redraw the control
+        }
+
+        private void inputPlaceholder_KeyDown(object sender, KeyEventArgs e)
+        {
+            this.OnKeyDown(e);
+        }
+        ///TODO: Add the other events
+
+
+        #endregion => Events
+
+        #region => Methods (Private)
+
+        private void UpdateControlHeight()
+        {
+            if (inputPlaceholder.Multiline == false)
+            {
+                int txtHeight = TextRenderer.MeasureText("GabirU", this.Font).Height + 1;
+                inputPlaceholder.Multiline = true;
+                inputPlaceholder.MinimumSize = new Size(0, txtHeight);
+                inputPlaceholder.Multiline = false;
+
+                this.Height = inputPlaceholder.Height + this.Padding.Top + this.Padding.Bottom;
+            }
+        }
+
+        private GraphicsPath GetFigurePath(Rectangle rect, int radius)
+        {
+            var path = new GraphicsPath();
+            float curveSize = radius * 2F;
+
+            path.StartFigure();
+            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
+            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
+            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
+            path.CloseFigure();
+
+            return path;
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
+            base.OnPaint(e);            
             Graphics graph = e.Graphics;
 
 
@@ -270,139 +332,26 @@ namespace CustomController
 
         }
 
+
         private void SetTextBoxRoundedRegion()
         {
             GraphicsPath pathTxt;
             if (Multiline)
             {
-                pathTxt = GetFigurePath(inputField.ClientRectangle, borderRadius - borderSize);
-                inputField.Region = new Region(pathTxt);
+                pathTxt = GetFigurePath(inputPlaceholder.ClientRectangle, borderRadius - borderSize);
+                inputPlaceholder.Region = new Region(pathTxt);
             }
             else
             {
-                pathTxt = GetFigurePath(inputField.ClientRectangle, borderSize * 2);
-                inputField.Region = new Region(pathTxt);
+                pathTxt = GetFigurePath(inputPlaceholder.ClientRectangle, borderSize * 2);
+                inputPlaceholder.Region = new Region(pathTxt);
             }
             pathTxt.Dispose();
         }
 
-        
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            if (this.DesignMode)
-                UpdateControlHeight();
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            UpdateControlHeight();
-        }
-
-        #endregion   => Methods (Overriden) 
-
-        #region => Methods (Private)
-        //Private methods
-
-
-        private GraphicsPath GetFigurePath(Rectangle rect, int radius)
-        {
-            var path = new GraphicsPath();
-            float curveSize = radius * 2F;
-
-            path.StartFigure();
-            path.AddArc(rect.X, rect.Y, curveSize, curveSize, 180, 90);
-            path.AddArc(rect.Right - curveSize, rect.Y, curveSize, curveSize, 270, 90);
-            path.AddArc(rect.Right - curveSize, rect.Bottom - curveSize, curveSize, curveSize, 0, 90);
-            path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
-            path.CloseFigure();
-
-            return path;
-        }
-
-
-
-        private void SetPlaceHolder()
-        {
-            if (string.IsNullOrWhiteSpace(inputField.Text) && placeholderText != String.Empty) // More elegant than "";
-            {
-                isPlaceholder = true;
-                inputField.Text = placeholderText;
-                inputField.ForeColor = placeholderColor;
-                if (isPasswordChar)
-                    inputField.UseSystemPasswordChar = false;
-            }
-        }
-
-        private void RemovePlaceHolder()
-        {
-            if (isPlaceholder && placeholderText != String.Empty) // More elegant than "";
-            {
-                isPlaceholder = false;
-                inputField.Text = String.Empty;
-                inputField.ForeColor = this.ForeColor;
-                if (isPasswordChar)
-                    inputField.UseSystemPasswordChar = true;
-            }
-        }
-
-        private void UpdateControlHeight()
-        {
-            if (inputField.Multiline == false)
-            {
-                int txtHeight = TextRenderer.MeasureText("GabirU", this.Font).Height + 1;
-                inputField.Multiline = true;
-                inputField.MinimumSize = new Size(0, txtHeight);
-                inputField.Multiline = false;
-
-                this.Height = inputField.Height + this.Padding.Top + this.Padding.Bottom;
-            }
-        }
-
-        private void inputField_TextChanged(object sender, EventArgs e)
-        {
-            if (_TextChanged != null)
-                _TextChanged.Invoke(sender, e);
-        }
-
-        private void inputField_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
-
-        private void inputField_MouseEnter(object sender, EventArgs e)
-        {
-            this.OnMouseEnter(e);
-        }
-
-        private void inputField_MouseLeave(object sender, EventArgs e)
-        {
-            this.OnMouseLeave(e);
-        }
-
-        private void inputField_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            this.OnKeyPress(e);
-        }
-
-        private void inputField_Enter(object sender, EventArgs e)
-        {
-            isFocused = true;
-            this.Invalidate();
-            RemovePlaceHolder();
-        }
-
-        private void inputField_Leave(object sender, EventArgs e)
-        {
-            isFocused = false;
-            this.Invalidate(); // Redraw the control
-            SetPlaceHolder();
-        }
-
-        ///TODO: Add the other events
 
         #endregion => Methods (Private)
 
+       
     }
 }
