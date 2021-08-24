@@ -29,7 +29,7 @@ namespace CustomController
         {
             Usuarios usuario = new Usuarios();
             usuario.NomeUsuario = ifUserName.Text;
-            usuario.Empresa = companyName.Text;
+            usuario.Empresa = ifCompanyName.Text;
 
             //UsuariosServicos _UsuariosServicos = new UsuariosServicos(new UsuariosRepositorioCripto());
             UsuariosServicos _UsuariosServicos = new UsuariosServicos(new UsuariosRepositorioJSON());
@@ -42,11 +42,9 @@ namespace CustomController
             UsuariosServicos _UsuariosServicos = new UsuariosServicos(new UsuariosRepositorioJSON());
             Usuarios usuario = _UsuariosServicos.Recuperar();
             ifUserName.Text = usuario.NomeUsuario;
-            userName.Text = usuario.NomeUsuario;
-            companyName.Text = usuario.Empresa;
+
+            ifCompanyName.Text = usuario.Empresa;
 
         }
-
-
     }
 }

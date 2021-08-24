@@ -29,16 +29,14 @@ namespace CustomController
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EntryPointForm));
             this.btnCallMaterialForm = new CustomController.Controls.CButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.cTextBoxAlternative1 = new CustomController.Controls.CTextBoxAlternative();
             this.inputUserName = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.materialProgressBar1 = new MaterialSkin.Controls.MaterialProgressBar();
-            this.userName = new CustomController.CTextBox();
             this.btnApply = new CustomController.Controls.CButton();
-            this.companyName = new CustomController.CTextBox();
-            this.ifUserName = new CustomController.Controls.CTextBoxWatermak();
+            this.ifUserName = new CustomController.Controls.CTextBox();
+            this.ifCompanyName = new CustomController.Controls.CTextBox();
             this.SuspendLayout();
             // 
             // btnCallMaterialForm
@@ -85,7 +83,7 @@ namespace CustomController
             // 
             this.inputUserName.Depth = 0;
             this.inputUserName.Hint = "";
-            this.inputUserName.Location = new System.Drawing.Point(515, 237);
+            this.inputUserName.Location = new System.Drawing.Point(515, 60);
             this.inputUserName.MaxLength = 32767;
             this.inputUserName.MouseState = MaterialSkin.MouseState.HOVER;
             this.inputUserName.Name = "inputUserName";
@@ -107,33 +105,6 @@ namespace CustomController
             this.materialProgressBar1.Size = new System.Drawing.Size(415, 5);
             this.materialProgressBar1.TabIndex = 4;
             // 
-            // userName
-            // 
-            this.userName.BackColor = System.Drawing.Color.White;
-            this.userName.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("userName.BackgroundImage")));
-            this.userName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.userName.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.userName.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.userName.BorderRadius = 10;
-            this.userName.BorderSize = 2;
-            this.userName.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.userName.ForeColor = System.Drawing.Color.Black;
-            this.userName.Location = new System.Drawing.Point(53, 51);
-            this.userName.MinimumSize = new System.Drawing.Size(227, 55);
-            this.userName.Multiline = false;
-            this.userName.Name = "userName";
-            this.userName.Padding = new System.Windows.Forms.Padding(40, 18, 10, 7);
-            this.userName.PasswordChar = false;
-            this.userName.Placeholder = "User";
-            this.userName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
-            this.userName.placeholderBackColor = System.Drawing.Color.White;
-            this.userName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.userName.PlaceholderForeColor = System.Drawing.Color.DimGray;
-            this.userName.Size = new System.Drawing.Size(227, 55);
-            this.userName.TabIndex = 5;
-            this.userName.Texts = "";
-            this.userName.UnderlinedStyle = false;
-            // 
             // btnApply
             // 
             this.btnApply.BackColor = System.Drawing.Color.MediumSlateBlue;
@@ -144,7 +115,7 @@ namespace CustomController
             this.btnApply.FlatAppearance.BorderSize = 0;
             this.btnApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApply.ForeColor = System.Drawing.Color.White;
-            this.btnApply.Location = new System.Drawing.Point(53, 161);
+            this.btnApply.Location = new System.Drawing.Point(46, 191);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(227, 40);
             this.btnApply.TabIndex = 6;
@@ -153,62 +124,56 @@ namespace CustomController
             this.btnApply.UseVisualStyleBackColor = false;
             this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
-            // companyName
-            // 
-            this.companyName.BackColor = System.Drawing.SystemColors.Window;
-            this.companyName.BorderColor = System.Drawing.Color.MediumSlateBlue;
-            this.companyName.BorderFocusColor = System.Drawing.Color.HotPink;
-            this.companyName.BorderRadius = 10;
-            this.companyName.BorderSize = 2;
-            this.companyName.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.companyName.ForeColor = System.Drawing.Color.DimGray;
-            this.companyName.Location = new System.Drawing.Point(53, 112);
-            this.companyName.Multiline = false;
-            this.companyName.Name = "companyName";
-            this.companyName.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
-            this.companyName.PasswordChar = false;
-            this.companyName.Placeholder = "Default Placeholder...";
-            this.companyName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
-            this.companyName.placeholderBackColor = System.Drawing.SystemColors.Window;
-            this.companyName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.companyName.PlaceholderForeColor = System.Drawing.Color.LightGray;
-            this.companyName.Size = new System.Drawing.Size(227, 32);
-            this.companyName.TabIndex = 5;
-            this.companyName.Texts = "";
-            this.companyName.UnderlinedStyle = false;
-            // 
             // ifUserName
             // 
             this.ifUserName.BackColor = System.Drawing.SystemColors.Window;
-            this.ifUserName.BackgroundImage = global::CustomController.Properties.Resources.userInputField;
-            this.ifUserName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ifUserName.BorderColor = System.Drawing.Color.DarkSlateBlue;
-            this.ifUserName.BorderFocusColor = System.Drawing.Color.DeepSkyBlue;
+            this.ifUserName.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.ifUserName.BorderFocusColor = System.Drawing.Color.DarkMagenta;
             this.ifUserName.BorderRadius = 10;
             this.ifUserName.BorderSize = 2;
-            this.ifUserName.Location = new System.Drawing.Point(515, 73);
-            this.ifUserName.MinimumSize = new System.Drawing.Size(227, 55);
+            this.ifUserName.Location = new System.Drawing.Point(46, 41);
+            this.ifUserName.MinimumSize = new System.Drawing.Size(239, 55);
             this.ifUserName.Multiline = false;
             this.ifUserName.Name = "ifUserName";
-            this.ifUserName.Padding = new System.Windows.Forms.Padding(40, 18, 7, 7);
+            this.ifUserName.Padding = new System.Windows.Forms.Padding(40, 18, 10, 7);
             this.ifUserName.PasswordChar = false;
-            this.ifUserName.Placeholder = "User";
+            this.ifUserName.Placeholder = "Default Watermark...";
             this.ifUserName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
             this.ifUserName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.ifUserName.PlaceholderForeColor = System.Drawing.Color.LightGray;
-            this.ifUserName.Size = new System.Drawing.Size(230, 55);
+            this.ifUserName.Size = new System.Drawing.Size(239, 55);
             this.ifUserName.TabIndex = 7;
             this.ifUserName.UnderlinedStyle = false;
+            // 
+            // ifCompanyName
+            // 
+            this.ifCompanyName.BackColor = System.Drawing.SystemColors.Window;
+            this.ifCompanyName.BorderColor = System.Drawing.Color.MediumSlateBlue;
+            this.ifCompanyName.BorderFocusColor = System.Drawing.Color.DarkMagenta;
+            this.ifCompanyName.BorderRadius = 10;
+            this.ifCompanyName.BorderSize = 2;
+            this.ifCompanyName.Location = new System.Drawing.Point(46, 121);
+            this.ifCompanyName.MinimumSize = new System.Drawing.Size(239, 55);
+            this.ifCompanyName.Multiline = false;
+            this.ifCompanyName.Name = "ifCompanyName";
+            this.ifCompanyName.Padding = new System.Windows.Forms.Padding(40, 18, 10, 7);
+            this.ifCompanyName.PasswordChar = false;
+            this.ifCompanyName.Placeholder = "Default Watermark...";
+            this.ifCompanyName.PlaceholderActiveForeColor = System.Drawing.Color.Gray;
+            this.ifCompanyName.PlaceholderFont = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ifCompanyName.PlaceholderForeColor = System.Drawing.Color.LightGray;
+            this.ifCompanyName.Size = new System.Drawing.Size(239, 55);
+            this.ifCompanyName.TabIndex = 7;
+            this.ifCompanyName.UnderlinedStyle = false;
             // 
             // EntryPointForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ifCompanyName);
             this.Controls.Add(this.ifUserName);
             this.Controls.Add(this.btnApply);
-            this.Controls.Add(this.companyName);
-            this.Controls.Add(this.userName);
             this.Controls.Add(this.materialProgressBar1);
             this.Controls.Add(this.inputUserName);
             this.Controls.Add(this.cTextBoxAlternative1);
@@ -228,9 +193,11 @@ namespace CustomController
         private Controls.CTextBoxAlternative cTextBoxAlternative1;
         private MaterialSkin.Controls.MaterialSingleLineTextField inputUserName;
         private MaterialSkin.Controls.MaterialProgressBar materialProgressBar1;
-        private CTextBox userName;
+        private CTextBoxWatermak userName;
         private Controls.CButton btnApply;
-        private CTextBox companyName;
-        private Controls.CTextBoxWatermak ifUserName;
+        private CTextBoxWatermak companyName;
+        private Controls.CTextBox ifUserName;
+        private Controls.CTextBox cTextBox1;
+        private Controls.CTextBox ifCompanyName;
     }
 }
