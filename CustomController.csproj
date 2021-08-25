@@ -12,7 +12,7 @@
 		<Company>ChewieSoft</Company>
 		<PackageIcon>chewieapp_logo.png</PackageIcon>
 		<PackageIconUrl />
-		<Version>1.0.7.1</Version>
+		<Version>1.0.8.0</Version>
 		<AssemblyName>CustomController.Controls</AssemblyName>
 		<Description>Windows Forms Custom UI elements for any purpose based on RJ Code and Chrene91
 </Description>
