@@ -8,7 +8,7 @@ using System.Drawing.Design;
 namespace CustomController.Controls
 {
     [DefaultEvent("OnSelectedIndexChanged")]
-    public partial class CComboBox : UserControl
+    public class CComboBox : UserControl
     {
 
         //Fields
