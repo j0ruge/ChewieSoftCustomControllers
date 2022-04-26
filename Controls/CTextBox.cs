@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace CustomController.Controls
 {
@@ -30,7 +25,6 @@ namespace CustomController.Controls
 
         #endregion => Private Fields
 
-
         public CTextBox()
         {
             InitializeComponent();
@@ -39,7 +33,7 @@ namespace CustomController.Controls
         #region => Properties
 
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public bool UnderlinedStyle
         {
             get => underlinedStyle;
@@ -50,7 +44,7 @@ namespace CustomController.Controls
             }
         }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public bool PasswordChar
         {
             get => isPasswordChar;
@@ -61,10 +55,10 @@ namespace CustomController.Controls
             }
         }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public Color BorderFocusColor { get => borderFocusColor; set => borderFocusColor = value; }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public int BorderRadius
         {
             get => borderRadius;
@@ -79,7 +73,7 @@ namespace CustomController.Controls
         }
 
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public Color BorderColor
         {
             get => borderColor;
@@ -90,7 +84,7 @@ namespace CustomController.Controls
             }
         }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public int BorderSize
         {
             get => borderSize;
@@ -102,7 +96,7 @@ namespace CustomController.Controls
         }
 
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         [Description("Sets the text of the input field")]
         public override string Text { get => inputPlaceholder.Text; set => inputPlaceholder.Text = value; }
 
@@ -124,14 +118,14 @@ namespace CustomController.Controls
         public Font PlaceholderFont { get => inputPlaceholder.WaterMarkFont; set { inputPlaceholder.WaterMarkFont = value; this.Invalidate(); } }
 
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public bool Multiline
         {
             get => inputPlaceholder.Multiline;
             set => inputPlaceholder.Multiline = value;
         }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public override Font Font
         {
             get => base.Font;
@@ -144,7 +138,7 @@ namespace CustomController.Controls
             }
         }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public override Color BackColor
         {
             get => base.BackColor;
@@ -163,7 +157,7 @@ namespace CustomController.Controls
             }
         }
 
-        [Category("ChewieSoft")]
+        [Category("ChewieSoft - Appearance")]
         public override Color ForeColor
         {
             get => base.ForeColor;
@@ -177,7 +171,6 @@ namespace CustomController.Controls
 
 
         #endregion => Properties
-
 
         #region => Events
 

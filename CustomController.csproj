@@ -12,7 +12,7 @@
 		<Company>ChewieSoft</Company>
 		<PackageIcon>chewieapp_logo.png</PackageIcon>
 		<PackageIconUrl />
-		<Version>1.0.8.0</Version>
+		<Version>1.0.9.0</Version>
 		<AssemblyName>CustomController.Controls</AssemblyName>
 		<Description>Windows Forms Custom UI elements for any purpose based on RJ Code and Chrene91
 </Description>
@@ -22,12 +22,19 @@
 
 RJ Code =&gt; https://github.com/RJCodeAdvance/Custom-TextBox-2--Rounded-Placeholder
 Chrene91 =&gt; https://www.codeproject.com/Articles/319910/Custom-TextBox-with-watermark</PackageReleaseNotes>
+		<AssemblyVersion>1.0.9.0</AssemblyVersion>
+		<FileVersion>1.0.9.0</FileVersion>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <Compile Remove="Controls\UserControls\**" />
 	  <EmbeddedResource Remove="Controls\UserControls\**" />
 	  <None Remove="Controls\UserControls\**" />
+	  <None Include="LICENSE.txt">
+	    <Pack>True</Pack>
+	    <PackagePath></PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
